@@ -31,18 +31,20 @@
                     <a href="#">Forgot Password?</a>
                 </div>
             </div>
+               <button id="googlebtn" class="mt-4 border-2 border-indigo-700  text-black py-2 w-full rounded-md  font-semibold">Sign In With Google <i class="fa-brands fa-google"></i></button>
             <div class="mt-4">
                 <button type="submit" value="LogIn" id="logIn" class="border-2 border-indigo-700 bg-indigo-700 text-white py-1 w-full rounded-md hover:bg-transparent hover:text-indigo-600 font-semibold">Log In</button>
             </div>
         </div>
     </div>
-</body>
+</body> 
 
 <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
     import {getDatabase, set, ref, update} from"https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
-    import { getAuth, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
+    import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
+
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
   
@@ -61,6 +63,7 @@
     const app = initializeApp(firebaseConfig);
     const database = getDatabase(app);
     const auth = getAuth();
+    const provider = new GoogleAuthProvider(); 
 
 logIn.addEventListener('click',(e) =>{
 
@@ -87,6 +90,38 @@ logIn.addEventListener('click',(e) =>{
     alert('errorMessage');
   });
 
+  googlebtn.addEventListener('click',(e)=>{
+    signInWithRedirect(auth, provider);
+
+
+    getRedirectResult(auth)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access Google APIs.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+
+    // The signed-in user info.
+    const user = result.user;
+
+    // name = displayName
+    //email = email
+    //photo = photoURL
+
+    alert(user.displayName);
+
+    // IdP data available using getAdditionalUserInfo(result)
+    // ...
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // The email of the user's account used.
+    const email = error.customData.email;
+    // The AuthCredential type that was used.
+    const credential = GoogleAuthProvider.credentialFromError(error);
+    // ...
+  });
+  })
     });
 
   </script>

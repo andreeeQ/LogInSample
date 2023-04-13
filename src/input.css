@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 .badge {
-
-    @apply bg-gray-700 text-white text-xs uppercase font-bold rounded-full p-2 absolute top-0 ml-2 mt-2
+    @apply bg-gray-700 text-white text-xs uppercase font-bold rounded-full
 }
+
