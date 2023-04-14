@@ -44,6 +44,7 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
     import {getDatabase, set, ref, update} from"https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
     import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
+  
 
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
@@ -90,6 +91,9 @@ logIn.addEventListener('click',(e) =>{
     alert('errorMessage');
   });
 
+
+  });
+
   googlebtn.addEventListener('click',(e)=>{
     signInWithRedirect(auth, provider);
 
@@ -121,9 +125,7 @@ logIn.addEventListener('click',(e) =>{
     const credential = GoogleAuthProvider.credentialFromError(error);
     // ...
   });
-  })
-    });
-
+  });
   </script>
 
 
